@@ -71,7 +71,7 @@ ISR(TIMER2_OVF_vect)
 	elapsedMillis++;	//Increment the millisecond timer
 	TCNT2 = 5;
 	
-	if(blinkOn && (elapsedMillis % 1000==0))ledToggle();
+	if(blinkOn && (elapsedMillis % 100==0))ledToggle();
 	
 	sei();
 }
@@ -164,18 +164,19 @@ int main (void)
 		//Now check to see if the sensor values are within range
 		//Check X Axis
 		if((sensorG.x >= 0.2) || (sensorG.x <= -0.2)){
-			printf("X Axis Fails!");
+			printf("X Axis Fails!\n\r");
 			testValue=0;
 		}
 		if((sensorG.y >= 0.2) || (sensorG.y <= -0.2)){
-			printf("Y Axis Fails!");
+			printf("Y Axis Fails!\n\r");
 			testValue=0;
 		}		
 		if((sensorG.z >= 0.2) || (sensorG.z <= -0.2)){
-			printf("Z Axis Fails!");
+			printf("Z Axis Fails!\n\r");
 			testValue=0;
 		}	
 		if(testValue == 1){
+			printf("Pass\n\r");
 			blinkOn = false;
 			ledOn();
 		}
@@ -384,6 +385,7 @@ void selectAccelerometerRange(struct settings* newSettings, struct sensorReading
 			printf("Invalid Selection");
 			break;
 	}	
+	saveSwing(swingValues);
 	printf("\n\n\r");
 }
 
