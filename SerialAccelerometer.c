@@ -144,6 +144,7 @@ int main (void)
 		
 		//Now run the test procedure
 		blinkOn = true;
+		uartInit(38400);
 		sei();
 		
 		printf("Testing Accelerometer...\n\r");
@@ -171,7 +172,7 @@ int main (void)
 			printf("Y Axis Fails!\n\r");
 			testValue=0;
 		}		
-		if((sensorG.z >= 0.2) || (sensorG.z <= -0.2)){
+		if((sensorG.z >= 1.2) || (sensorG.z <= 0.8)){
 			printf("Z Axis Fails!\n\r");
 			testValue=0;
 		}	
@@ -197,6 +198,8 @@ int main (void)
 	/***************************************************************
 	* Run the main code
 	***************************************************************/
+	//Interrupts must be enabled for the millis() and delay() functions to work.
+	//The free running ADC also will not work without interrupts enabled.
 	sei();
 	while(1){
 		/************************************************************************
